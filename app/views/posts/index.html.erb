@@ -1,0 +1,14 @@
+<% if user_signed_in? %>
+  <%= link_to "Выход", destroy_user_session_path, :method => :delete %><br>
+<% else %>
+  <%= link_to "Вход", new_user_session_path %>
+  <%= link_to "Регистрация", new_user_registration_path %><br>
+<% end %>
+<% @posts.each do |post| %>
+  <%= post.author %>
+  <%= post.content%>
+  <%= post.created_at%>
+  <br>
+<% end %>
+
+<%= link_to "Новое сообщение",new_post_path %>
