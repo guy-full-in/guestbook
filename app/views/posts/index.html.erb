@@ -1,14 +1,40 @@
-<% if user_signed_in? %>
-  <%= link_to "Выход", destroy_user_session_path, :method => :delete %><br>
-<% else %>
-  <%= link_to "Вход", new_user_session_path %>
-  <%= link_to "Регистрация", new_user_registration_path %><br>
-<% end %>
-<%= link_to "Новое сообщение",new_post_path %>
-<br><br>
-<% @posts.each do |post| %>
-  <%= post.author %><br>
-  <%= post.content %>
-  <br><br>
-<% end %>
-<%= paginate @posts %>
+<div class="header">
+  <div id="authen">
+	<% if user_signed_in? %>
+	  <%= link_to "Выход", destroy_user_session_path, :method => :delete %>
+	<% else %>
+	  <%= link_to "Вход", new_user_session_path %>
+	  <%= link_to "Регистрация", new_user_registration_path %>
+	<% end %>
+  </div>
+  <div id="new_post">
+	<%= link_to "Новое сообщение",new_post_path %>
+  </div>
+</div>
+
+
+  <% @posts.each do |post| %>
+    <div class="post">
+      <div class="author">
+        <%= post.author %>
+      </div>
+      <div class="date">
+      	<%= post.updated_at %>
+      </div>
+      <div class="content">
+        <%= post.content %>
+      </div>
+      <div class="edit_submits">
+        <% if user_signed_in? && current_user.email == post.author %>
+          <%= link_to "Редактировать", edit_post_path(post) %>
+          <%= link_to "Удалить", post_path(post),:confirm=>'Вы уверены?',:method=>:delete %>
+        <% else %>
+          <br>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
+<div id="paginate">
+  <%= paginate @posts %>
+</div>

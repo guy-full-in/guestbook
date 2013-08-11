@@ -1,6 +1,6 @@
 <%= form_for(@post) do |f| %>
   <%= render 'shared/error_messages' %>
   <%= f.label :content,"Текст сообщения"%> <br>
-  <%= f.text_area :content, :size => "40x5" %> <br>
+  <%= f.text_area :content, :size => "40x5", :value => @post.content %> <br>
   <%= f.submit "Написать сообщение" %>
 <% end %>
